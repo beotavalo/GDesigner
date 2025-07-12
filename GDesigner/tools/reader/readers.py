@@ -34,7 +34,7 @@ from bs4 import BeautifulSoup
 from pylatexenc.latex2text import LatexNodes2Text
 from pptx import Presentation
 
-from GDesigner.llm import VisualLLMRegistry
+#from GDesigner.llm import VisualLLMRegistry
 from GDesigner.utils.log import logger
 from GDesigner.utils.globals import Cost
 
@@ -265,7 +265,7 @@ class PythonReader(Reader):
             logger.info(f"Error reading Python file: {e}")
         return file_content, execution_result, error
 
-
+'''
 class IMGReader(Reader):
     def parse(self, file_path: Path, task: str = "Describe this image as detail as possible." ) -> str:
         logger.info(f"Reading image file from {file_path}.")
@@ -283,30 +283,13 @@ class VideoReader(Reader):
             audio_content = AudioReader.parse(file_path)
 
         return answer + "The audio includes:\n" + audio_content
-
+'''
 
 # Support 41 kinds of files.
 READER_MAP = { 
-    ".png": IMGReader(),
-    ".jpg": IMGReader(),
-    ".jpeg": IMGReader(),
-    ".gif": IMGReader(),
-    ".bmp": IMGReader(),
-    ".tiff": IMGReader(),
-    ".tif": IMGReader(),
-    ".webp": IMGReader(),
     ".mp3": AudioReader(),
     ".m4a": AudioReader(),
     ".wav": AudioReader(),
-    ".MOV": VideoReader(),
-    ".mp4": VideoReader(),
-    ".mov": VideoReader(),
-    ".avi": VideoReader(),
-    ".mpg": VideoReader(),
-    ".mpeg": VideoReader(),
-    ".wmv": VideoReader(),
-    ".flv": VideoReader(),
-    ".webm": VideoReader(),
     ".zip": ZipReader(),
     ".pptx": PPTXReader(),
     ".xlsx": ExcelReader(),
@@ -330,6 +313,7 @@ READER_MAP = {
     ".py": PythonReader(),
     ".pdb": TXTReader(),
 }
+
     
 class FileReader:
     def set_reader(self, suffix) -> None:

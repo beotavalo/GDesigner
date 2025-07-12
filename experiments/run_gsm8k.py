@@ -15,8 +15,8 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 from GDesigner.utils.const import GDesigner_ROOT
 from GDesigner.graph.graph import Graph
-from GDesigner.tools.reader.readers import JSONLReader
 from GDesigner.utils.globals import Time
+from GDesigner.tools.reader.readers import JSONLReader
 from GDesigner.utils.globals import Cost, PromptTokens, CompletionTokens
 from datasets.gsm8k_dataset import gsm_data_process,gsm_get_predict
 
