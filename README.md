@@ -21,6 +21,22 @@ BASE_URL = "" # the BASE_URL of OpenAI LLM backend
 API_KEY = "" # for OpenAI LLM backend
 ```
 
+### Setup Embedding System (Optional but Recommended)
+
+If you experience network connectivity issues with Hugging Face models, run the setup script:
+
+```bash
+python setup_embedding.py
+```
+
+This will:
+- Test network connectivity
+- Set up cache directories
+- Test the embedding system
+- Provide recommendations for offline usage
+
+The system automatically handles network issues by using fallback embeddings when online models are unavailable.
+
 ### Download Datasets
 
 Download MMLU, HumanEval and GSM8K datasets from MMLU, HumanEval and GSM8K. And put them in different folders.
@@ -39,6 +55,35 @@ For example, if you want to verify the results on the `gsm8k` dataset, you can e
 
 ```bash
 python experiments/run_gsm8k.py --mode FullConnected --batch_size 4 --agent_nums 4 --num_iterations 10 --num_rounds 1 --optimized_spatial
+```
+
+## Troubleshooting
+
+### Network Connectivity Issues
+
+If you encounter errors like `Failed to resolve 'huggingface.co'` or similar network issues:
+
+1. **Run the setup script**: `python setup_embedding.py`
+2. **Check your internet connection**
+3. **Use offline mode**: The system automatically falls back to offline embeddings
+4. **Set custom cache directory**:
+   ```python
+   from GDesigner.utils.embedding_config import set_cache_directory
+   set_cache_directory('/path/to/your/cache')
+   ```
+
+### Embedding System Configuration
+
+The embedding system can be configured for different scenarios:
+
+```python
+from GDesigner.utils.embedding_config import enable_offline_mode, disable_offline_mode
+
+# Force offline mode (no network requests)
+enable_offline_mode()
+
+# Force online mode (will raise errors if network fails)
+disable_offline_mode()
 ```
 
 ## Acknowledgement
